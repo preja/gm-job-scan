@@ -17,7 +17,11 @@ class App {
              $filter->apply();
              $responseHandler = new ResponseHandler($client->send(static::$config['url'],$i));
 
-         }
+        }
         
+    }
+
+    public static function getUrl(): string {
+        return static::$config['url'];
     }
 }
