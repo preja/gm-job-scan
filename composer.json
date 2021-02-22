@@ -1,0 +1,25 @@
+{
+    "name": "phpsandbox/standard",
+    "description": "Official scaffold for Standard notebooks on PHPSandbox",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olatunbosun Egberinde",
+            "email": "bosunski@gmail.com"
+        }
+    ],
+"autoload": {
+    "psr-4": {
+        "Main\\App\\": "src"
+    }
+},    
+"minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
+}
