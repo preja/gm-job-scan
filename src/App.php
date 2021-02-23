@@ -21,7 +21,7 @@ class App {
         $responseHandler = new ResponseHandler($client->send(static::$config['url'], 1));
         
         $offers = $responseHandler->getAds();
-        for ($i = 22; $i <= $responseHandler->getPages(); $i++) {    
+        for ($i = 2; $i <= $responseHandler->getPages(); $i++) {    
           $responseHandler = new ResponseHandler($client->send(static::$config['url'],$i));
           foreach ($responseHandler->getAds() as $offer) {
               array_push($offers, $offer);
