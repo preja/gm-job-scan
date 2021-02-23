@@ -6,7 +6,7 @@ class ResponseHandler {
 
     const ADS_KEY = 'ads';
     const PAGES_KEY = 'pages';
-
+    const TOTAL_KEY = 'total';
     
     private $body;
 
@@ -21,11 +21,11 @@ class ResponseHandler {
         }
         $this->body = json_decode($this->body, true);        
     }
-    public function get() {
+    public function get(): array {
          return $this->body;
     }
 
-    public function hasParam($key) {
+    public function hasParam($key): bool {
         if (isset($this->body[$key])) {
             return true;
         }
@@ -33,7 +33,7 @@ class ResponseHandler {
 
     }
 
-    public function getParam($key) {
+    public function getParam($key) :mixed {
           if ($this->hasParam($key)) {
             return $this->body[$key];
           }
@@ -41,13 +41,18 @@ class ResponseHandler {
 
     }
 
-    public function getPages() {
-         return $this->getParam(ResponseHandler::PAGES_KEY);
+    public function getPages(): int {
+         return (int)$this->getParam(ResponseHandler::PAGES_KEY);
          
     }
 
-    public function getAds() {
+    public function getAds():array {
         return $this->getParam(ResponseHandler::ADS_KEY);
+    }
+
+    public function getTotal() {
+        return $this->getParam(ResponseHandler::TOTAL_KEY);
+
     }
 
 }

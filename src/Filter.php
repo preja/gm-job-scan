@@ -1,9 +1,9 @@
-<?php 
+<?php declare(strict_types=1);
 namespace Main\App;
 
 class Filter {
 
-    private static $filtedCount =0;
+    private static $filtredCount = 0;
 
     private $filtredData = [];
 
@@ -16,24 +16,31 @@ class Filter {
         foreach ($this->setOfData as $item) {
           $this->filterItem($item);
         }
-        echo static::$filtedCount;
     }
 
     protected function filterItem($item) : void {
-            echo "oferta:" . "\r\n \r\n";
-            foreach ($this->properties as $nameOfField) {
-               echo $item[$nameOfField] ?? '' .  "<br /><br />";
-               $this->filtredData[][$nameOfField] = $item[$nameOfField];  
+            $filtredItem = [];
+            foreach ($this->properties as  $nameOfField) {
+               $filtredItem[$nameOfField] = $item[$nameOfField] ?? ''; 
+               if (!isset($item[$nameOfField])) {
+                   echo 'brak pola dla oferty' . var_export($item,true);
+               }
             }
-            static::$filtedCount++;    
+            
+            $this->filtredData[]= $filtredItem;  
+            static::$filtredCount++;    
     }
 
     public function getFiltredData() : array {
         return $this->filtredData;
     }
 
-    public static function getCountOfFiltred() {
-        return static::$filtedCount;
+    public static function getCountOfFiltred(): int {
+        return static::$filtredCount;
+    }
+
+    public static function resetCounter() : void {
+        static::$filtredCount = 0;
     }
 
 

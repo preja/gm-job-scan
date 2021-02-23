@@ -3,7 +3,8 @@ use PHPUnit\Framework\TestCase;
 
 final class ResponseHandlerTest extends TestCase
 {
-
+    
+    
     public function jsonProvider() : array {
          return [['{"ads":[],"total":10,"pages":25}']];
     }
@@ -57,6 +58,17 @@ final class ResponseHandlerTest extends TestCase
         $this->assertFalse($rh->hasParam('notExsist'));
 
     }
+
+      /**
+    * @dataProvider jsonProvider
+    */
+    public function testGetParam($body) {
+        $rh = new Main\App\ResponseHandler($body);
+        $this->assertNotNull($rh->getParam('total'));
+
+    }
+
+    
 
 
 
