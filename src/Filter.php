@@ -22,9 +22,6 @@ class Filter {
             $filtredItem = [];
             foreach ($this->properties as  $nameOfField) {
                $filtredItem[$nameOfField] = $item[$nameOfField] ?? ''; 
-               if (!isset($item[$nameOfField])) {
-                   echo 'brak pola dla oferty' . var_export($item,true);
-               }
             }
             
             $this->filtredData[]= $filtredItem;  

@@ -3,44 +3,47 @@ namespace Main\App;
 class App { 
     private static $config = [
         'url' => 'https://goldmanrecruitment.pl/wp-json/appmanager/v1/ads',
-        'fieldsToShow' => ['title','intro', 'refNumber', 'description', 'url']
+        'fieldsToShow' => ['title','intro', 'refNumber', 'description', 'url','xxxd']
     ];
 
     public static function run():void {
+        $offers  = self::readOffers();  
+        $filter = new Filter(static::$config['fieldsToShow'], $offers);
+        $filter->apply();
+        $filtredData = $filter->getFiltredData();        
+        self::printOffers($filtredData);
+        echo " Odczytanych ofert: " . Filter::getCountOfFiltred();
+        
+    }
+    
+    protected static function readOffers():array {
         $client = new HttpClient();
-        $responseHandler = new ResponseHandler($client->send(static::$config['url'], 1, 50));
+        $responseHandler = new ResponseHandler($client->send(static::$config['url'], 1));
         
         $offers = $responseHandler->getAds();
-        for ($i = 2; $i <= $responseHandler->getPages(); $i++) {
-         
-          $responseHandler = new ResponseHandler($client->send(static::$config['url'],$i, 50));
+        for ($i = 22; $i <= $responseHandler->getPages(); $i++) {    
+          $responseHandler = new ResponseHandler($client->send(static::$config['url'],$i));
           foreach ($responseHandler->getAds() as $offer) {
               array_push($offers, $offer);
           } 
           echo "odczyt ofert " . count($offers)  .' na ' . $responseHandler->getTotal() . "\r\n";
         }
-        $filter = new Filter(static::$config['fieldsToShow'], $offers);
-        $filter->apply();
-        $filtredData = $filter->getFiltredData();        
-        
-        $mask = "%20s %s\n";
-        foreach($filtredData as $item)
-        {   
-            foreach($item as $k => $v) {
-              echo sprintf($mask, $k, $v);
-            }
-        }
-
-        echo " Odczytanych ofert: " . Filter::getCountOfFiltred();
-        
+        return $offers;
     }
     
+    protected static function printOffers($filtredData):void {
+        foreach ($filtredData as $item) {        
+            echo $item['title'] . ' | ' . $item['intro'] . ' | ' . $item['refNumber'] . ' | ' 
+                                . $item['url'] . "\r\n\r\n" 
+                                . trim(strip_tags($item['description'])) . "\r\n" . '----------------------';
+        }
+    } 
 
     public static function getUrl(): string {
         return static::$config['url'];
     }
 
-    public static function getFieldsToShow() {
+    public static function getFieldsToShow() : array {
         return static::$config['fieldsToShow'];
 
     }

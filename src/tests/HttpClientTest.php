@@ -23,4 +23,5 @@ final class HttpClientTest extends TestCase
         $body = json_decode($resp, true);
         $this->assertTrue(isset($body['total']));
     }
+
 }
