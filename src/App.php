@@ -3,7 +3,7 @@ namespace Main\App;
 class App { 
     private static $config = [
         'url' => 'https://goldmanrecruitment.pl/wp-json/appmanager/v1/ads',
-        'fieldsToShow' => ['title','intro', 'refNumber', 'description', 'url','xxxd']
+        'fieldsToShow' => ['title','intro', 'refNumber', 'description', 'url']
     ];
 
     public static function run():void {
