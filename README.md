@@ -6,10 +6,11 @@ Created using PHPSandbox
 2) php index.php
 #todo:
 - To much static
-- Move HttpClient to constructor for easy testing
-- Fix tests - remove Http client request and use mock
-- Crate smaller classes to move responsibilys from App
+- Move HttpClient to a constructor for easy testing
+- Fix tests - remove HTTP client request and use mock
+- Crate smaller classes to move responsibly from App
 - Fix formatting
 - Add own exceptions
+
 
 
